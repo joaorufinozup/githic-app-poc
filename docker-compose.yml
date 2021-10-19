@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - '8000:8000'
+    network_mode: 'host'
+  ngrok:
+    image: wernight/ngrok
+    ports:
+      - '4040:4040'
+    network_mode: 'host'
+    command:
+      - /bin/sh
+      - -c
+      - |
+        ngrok http 8000
+    depends_on:
+      - app
